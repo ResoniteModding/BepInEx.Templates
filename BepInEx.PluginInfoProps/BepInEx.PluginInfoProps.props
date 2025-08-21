@@ -1,9 +1,11 @@
 <Project>
     <Target Name="AddGeneratedFile" BeforeTargets="BeforeCompile;CoreCompile" Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)GeneratedFile.cs">
         <PropertyGroup>
-            <BepInExPluginGuid Condition="'$(BepInExPluginGuid)' == ''">$(AssemblyName)</BepInExPluginGuid>
+            <BepInExPluginGuid Condition="'$(BepInExPluginGuid)' == ''">$(PackageID)</BepInExPluginGuid>
             <BepInExPluginName Condition="'$(BepInExPluginName)' == ''">$(Product)</BepInExPluginName>
             <BepInExPluginVersion Condition="'$(BepInExPluginVersion)' == ''">$(Version)</BepInExPluginVersion>
+            <BepInExPluginAuthors Condition="'$(BepInExPluginAuthors)' == ''">$(Authors)</BepInExPluginAuthors>
+            <BepInExPluginRepositoryUrl Condition="'$(BepInExPluginRepositoryUrl)' == ''">$(RepositoryUrl)</BepInExPluginRepositoryUrl>
             <GeneratedText><![CDATA[
 namespace $(RootNamespace)
 {
@@ -12,6 +14,8 @@ namespace $(RootNamespace)
         public const string PLUGIN_GUID = "$(BepInExPluginGuid)"%3B
         public const string PLUGIN_NAME = "$(BepInExPluginName)"%3B
         public const string PLUGIN_VERSION = "$(BepInExPluginVersion)"%3B
+        public const string PLUGIN_AUTHORS = "$(BepInExPluginAuthors)"%3B
+        public const string PLUGIN_REPOSITORY_URL = "$(BepInExPluginRepositoryUrl)"%3B
     }
 }
       ]]></GeneratedText>
