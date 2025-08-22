@@ -3,8 +3,13 @@ name: Build
 on: push
 
 jobs:
-    build:
+    collect-info:
         runs-on: ubuntu-latest
+        outputs:
+            build_type: ${{ steps.info.outputs.build_type }}
+            build_id: ${{ steps.info.outputs.build_id }}
+            sha_short: ${{ steps.info.outputs.sha_short }}
+            last_commit: ${{ steps.last_successful_commit.outputs.commit_hash }}
         steps:
             -   uses: actions/checkout@v3
                 with:
@@ -34,25 +39,76 @@ jobs:
                     branch: master
                     workflow_id: build.yml
                     github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    build:
+        needs: collect-info
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                project:
+                    - name: BepInEx.Templates
+                      path: BepInEx.Templates/BepInEx.Templates.csproj
+                      version_tag: PackageVersion
+                    - name: BepInEx.PluginInfoProps
+                      path: BepInEx.PluginInfoProps/BepInEx.PluginInfoProps.csproj
+                      version_tag: Version
+        steps:
+            -   uses: actions/checkout@v3
             -   uses: actions/setup-dotnet@v4
                 with:
                     dotnet-version: "9.0.x"
+            -   name: Extract version
+                id: version
+                run: |
+                    VERSION=$(grep -oP "(?<=<${{ matrix.project.version_tag }}>)[^<]+" ${{ matrix.project.path }})
+                    echo "version=$VERSION" >> $GITHUB_OUTPUT
             -   name: Build
                 run: |
-                    dotnet build -c Release --version-suffix "be.${{ steps.info.outputs.build_id }}"
-                    dotnet pack -c Release --no-build --version-suffix "be.${{ steps.info.outputs.build_id }}" -o ./bin/dist
-            -   name: Publish to GitHub Packages
-                if: ${{ steps.info.outputs.build_type == 'BleedingEdge' }}
+                    if [ "${{ needs.collect-info.outputs.build_type }}" == "BleedingEdge" ]; then
+                        VERSION="${{ steps.version.outputs.version }}-be.${{ needs.collect-info.outputs.build_id }}"
+                    else
+                        VERSION="${{ steps.version.outputs.version }}"
+                    fi
+                    dotnet build ${{ matrix.project.path }} -c Release -p:PackageVersion="$VERSION"
+            -   name: Pack
                 run: |
-                    dotnet nuget push ./bin/dist/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://nuget-modding.resonite.net/v3/index.json --skip-duplicate
-            -   name: Generate changelog
-                id: generate_changelog
-                if: ${{ steps.info.outputs.build_type == 'BleedingEdge' }}
-                run: |
-                    changelog=$(git --no-pager log --no-merges --pretty="format:- (\`%h\`) [%an] %s" ${{ steps.last_successful_commit.outputs.commit_hash }}..HEAD | sed ':a;N;$!ba;s/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
-                    echo "::set-output name=changelog::$changelog"
+                    if [ "${{ needs.collect-info.outputs.build_type }}" == "BleedingEdge" ]; then
+                        VERSION="${{ steps.version.outputs.version }}-be.${{ needs.collect-info.outputs.build_id }}"
+                    else
+                        VERSION="${{ steps.version.outputs.version }}"
+                    fi
+                    dotnet pack ${{ matrix.project.path }} -c Release --no-build -p:PackageVersion="$VERSION" -o ./bin/dist
             -   name: Upload Artifacts
                 uses: actions/upload-artifact@v4
                 with:
                     path: "./bin/dist/*.nupkg"
-                    name: "BepInEx_Templates_CI_${{ steps.info.outputs.build_type }}_${{ steps.info.outputs.sha_short }}_${{ steps.info.outputs.build_id || 0 }}"
+                    name: "${{ matrix.project.name }}_${{ needs.collect-info.outputs.build_type }}_${{ needs.collect-info.outputs.sha_short }}_${{ needs.collect-info.outputs.build_id || 0 }}"
+
+    publish:
+        needs: [collect-info, build]
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+            -   name: Download all artifacts
+                uses: actions/download-artifact@v4
+                with:
+                    path: ./artifacts
+            -   name: Combine artifacts
+                run: |
+                    mkdir -p ./bin/dist
+                    find ./artifacts -name "*.nupkg" -exec cp {} ./bin/dist/ \;
+            -   name: Upload Combined Artifacts
+                uses: actions/upload-artifact@v4
+                with:
+                    path: "./bin/dist/*.nupkg"
+                    name: "BepInEx_Templates_CI_${{ needs.collect-info.outputs.build_type }}_${{ needs.collect-info.outputs.sha_short }}_${{ needs.collect-info.outputs.build_id || 0 }}"
+            -   name: Publish to GitHub Packages
+                if: ${{ needs.collect-info.outputs.build_type == 'BleedingEdge' }}
+                run: |
+                    dotnet nuget push ./bin/dist/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://nuget-modding.resonite.net/v3/index.json --skip-duplicate
+            -   name: Generate changelog
+                id: generate_changelog
+                if: ${{ needs.collect-info.outputs.build_type == 'BleedingEdge' }}
+                run: |
+                    changelog=$(git --no-pager log --no-merges --pretty="format:- (\`%h\`) [%an] %s" ${{ needs.collect-info.outputs.last_commit }}..HEAD | sed ':a;N;$!ba;s/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+                    echo "::set-output name=changelog::$changelog"
