@@ -17,9 +17,6 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <RestoreAdditionalProjectSources>
       https://nuget-modding.resonite.net/v3/index.json;
-      https://api.nuget.org/v3/index.json;
-      https://nuget.bepinex.dev/v3/index.json;
-      https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
   </PropertyGroup>
 
@@ -30,9 +27,7 @@
 		<PackageReference Include="BepInEx.NET.Common" Version="6.0.0-be.*" />
     <PackageReference Include="BepInEx.NET.CoreCLR" Version="6.0.0-be.*" IncludeAssets="compile" />
 		<PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-be.*" />
-		<Reference Include="BepInExResoniteShim">
-			<HintPath>$(GamePath)BepInEx\plugins\BepInExResoniteShim.dll</HintPath>
-		</Reference>
+		<PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.6.*" />
 		<Reference Include="FrooxEngine">
 		    <HintPath>$(GamePath)FrooxEngine.dll</HintPath>
 		</Reference>
