@@ -17,7 +17,7 @@ jobs:
             build_type: ${{ steps.info.outputs.build_type }}
             build_id: ${{ steps.info.outputs.build_id }}
             sha_short: ${{ steps.info.outputs.sha_short }}
-            last_commit: ${{ steps.last_successful_commit.outputs.commit_hash }}
+            last_commit: ${{ steps.setSHAs.outputs.base }}
         steps:
             -   uses: actions/checkout@v3
                 with:
@@ -40,13 +40,13 @@ jobs:
                         });
                         core.setOutput("sha_short", shortHash);
                         core.setOutput("build_id", context.runNumber);
-            -   uses: nrwl/last-successful-commit-action@v1
-                id: last_successful_commit
+            -   name: Derive appropriate SHAs for base and head
+                id: setSHAs
+                uses: nrwl/nx-set-shas@v4
                 if: ${{ steps.info.outputs.build_type == 'BleedingEdge' }}
                 with:
-                    branch: master
-                    workflow_id: build.yml
-                    github_token: ${{ secrets.GITHUB_TOKEN }}
+                    main-branch-name: master
+                    workflow-id: build.yml
 
     build:
         needs: collect-info
