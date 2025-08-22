@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>2.0.0-be.4</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <PackageId>BepInEx.Templates</PackageId>
     <Title>BepInEx Plugin Templates</Title>
     <Authors>BepInEx</Authors>
-    <Description>Common plugin templates for BepInEx 5 and BepInEx 6</Description>
+    <Description>Common plugin templates for BepInEx 6</Description>
     <PackageTags>BepInEx;Plugin;Template</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>netstandard2.0</TargetFramework>

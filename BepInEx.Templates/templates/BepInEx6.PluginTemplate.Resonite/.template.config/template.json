@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "BepInEx",
+  "classifications": [ "BepInEx", "BepInEx 6" , "Plugin" , "CoreCLR", ".NET Core", "Resonite" ],
+  "identity": "BepInEx6.PluginTemplate.Resonite",
+  "name": "BepInEx 6 Resonite Plugin",
+  "shortName": "bep6plugin_resonite",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "sourceName": "BepInEx6.PluginTemplate.Resonite",
+  "symbols": {
+    "TargetFramework": {
+      "type": "parameter",
+      "description": "The target framework for the project",
+      "datatype": "text",
+      "defaultValue": "net9.0",
+      "replaces": "net9.0"
+    },
+    "Version": {
+      "type": "parameter",
+      "description": "Plugin version",
+      "datatype": "text",
+      "replaces": "{version}",
+      "defaultValue": "1.0.0"
+    },
+    "Authors": {
+      "type": "parameter",
+      "description": "Comma-separated list of plugin authors",
+      "datatype": "text",
+      "replaces": "{authors}",
+      "defaultValue": "Your Name"
+    },
+    "RepositoryUrl": {
+      "type": "parameter",
+      "description": "Repository URL for the plugin",
+      "datatype": "text",
+      "replaces": "{repositoryUrl}",
+      "defaultValue": "https://github.com/OWNER/BepInEx6.PluginTemplate.Resonite"
+    }
+  }
+}
