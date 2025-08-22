@@ -1,9 +1,17 @@
 name: Build
 
-on: push
+on: 
+    workflow_run:
+        workflows: ["Verify Templates"]
+        types:
+            - completed
+    push:
+        branches:
+            - master
 
 jobs:
     collect-info:
+        if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
         runs-on: ubuntu-latest
         outputs:
             build_type: ${{ steps.info.outputs.build_type }}
