@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.Templates", "BepInEx.Templates\BepInEx.Templates.csproj", "{C57C43F6-3BCC-42C5-83C3-48DD6CA51245}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.PluginInfoProps", "BepInEx.PluginInfoProps\BepInEx.PluginInfoProps.csproj", "{E05232A2-D0AD-435C-8C16-BC954E43E97B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BepInEx.ResonitePluginInfoProps", "BepInEx.ResonitePluginInfoProps\BepInEx.ResonitePluginInfoProps.csproj", "{E05232A2-D0AD-435C-8C16-BC954E43E97B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{BD2D4189-0F06-4F95-9E6A-61B0B6468BCF}"
 	ProjectSection(SolutionItems) = preProject
