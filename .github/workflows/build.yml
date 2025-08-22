@@ -57,8 +57,8 @@ jobs:
                     - name: BepInEx.Templates
                       path: BepInEx.Templates/BepInEx.Templates.csproj
                       version_tag: PackageVersion
-                    - name: BepInEx.PluginInfoProps
-                      path: BepInEx.PluginInfoProps/BepInEx.PluginInfoProps.csproj
+                    - name: BepInEx.ResonitePluginInfoProps
+                      path: BepInEx.ResonitePluginInfoProps/BepInEx.ResonitePluginInfoProps.csproj
                       version_tag: Version
         steps:
             -   uses: actions/checkout@v3

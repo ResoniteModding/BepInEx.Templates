@@ -10,15 +10,8 @@
     "type": "project"
   },
   "preferNameDirectory": true,
-  "sourceName": "BepInEx6.PluginTemplate.Resonite",
+  "sourceName": "ProjectName",
   "symbols": {
-    "TargetFramework": {
-      "type": "parameter",
-      "description": "The target framework for the project",
-      "datatype": "text",
-      "defaultValue": "net9.0",
-      "replaces": "net9.0"
-    },
     "Version": {
       "type": "parameter",
       "description": "Plugin version",
@@ -38,7 +31,7 @@
       "description": "Repository URL for the plugin",
       "datatype": "text",
       "replaces": "{repositoryUrl}",
-      "defaultValue": "https://github.com/OWNER/BepInEx6.PluginTemplate.Resonite"
+      "defaultValue": "https://github.com/OWNER/ProjectName"
     }
   }
 }

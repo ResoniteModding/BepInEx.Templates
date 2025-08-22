@@ -3,10 +3,10 @@ using BepInEx.Logging;
 using BepInEx.NET.Common;
 using BepInExResoniteShim;
 
-namespace BepInEx6.PluginTemplate.Resonite;
+namespace ProjectName;
 
-[ResonitePlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHORS, MyPluginInfo.PLUGIN_REPOSITORY_URL)]
-[BepInDependency(BepInExResoniteShim.BepInExResoniteShim.GUID, BepInDependency.DependencyFlags.HardDependency)]
+[ResonitePlugin(PluginInfo.GUID, PluginInfo.NAME, PluginInfo.VERSION, PluginInfo.AUTHORS, PluginInfo.REPOSITORY_URL)]
+[BepInDependency(BepInExResoniteShim.PluginInfo.GUID, BepInDependency.DependencyFlags.HardDependency)]
 public class Plugin : BasePlugin
 {
     internal static new ManualLogSource Log;
@@ -15,6 +15,6 @@ public class Plugin : BasePlugin
     {
         // Plugin startup logic
         Log = base.Log;
-        Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        Log.LogInfo($"Plugin {PluginInfo.GUID} is loaded!");
     }
 }
