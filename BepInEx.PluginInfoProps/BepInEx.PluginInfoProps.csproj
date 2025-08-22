@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>ResoniteModding.PluginInfoProps</PackageId>
-        <Version>3.0.0</Version>
+        <Version>2.1.0</Version>
         <Authors>ResoniteModding</Authors>
         <PackageProjectUrl>https://github.com/ResoniteModding/BepInEx.Templates/tree/master/BepInEx.PluginInfoProps</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
