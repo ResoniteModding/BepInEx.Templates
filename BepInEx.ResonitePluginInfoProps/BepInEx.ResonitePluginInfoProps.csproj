@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <PackageId>BepInEx.PluginInfoProps</PackageId>
+        <PackageId>BepInEx.ResonitePluginInfoProps</PackageId>
         <Version>2.1.0</Version>
         <Authors>BepInEx</Authors>
         <PackageProjectUrl>https://github.com/ResoniteModding/BepInEx.Templates/tree/master/BepInEx.ResonitePluginInfoProps</PackageProjectUrl>
