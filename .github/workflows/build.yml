@@ -114,9 +114,3 @@ jobs:
                 if: ${{ needs.collect-info.outputs.build_type == 'BleedingEdge' }}
                 run: |
                     dotnet nuget push ./bin/dist/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://nuget-modding.resonite.net/v3/index.json --skip-duplicate
-            -   name: Generate changelog
-                id: generate_changelog
-                if: ${{ needs.collect-info.outputs.build_type == 'BleedingEdge' }}
-                run: |
-                    changelog=$(git --no-pager log --no-merges --pretty="format:- (\`%h\`) [%an] %s" ${{ needs.collect-info.outputs.last_commit }}..HEAD | sed ':a;N;$!ba;s/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
-                    echo "::set-output name=changelog::$changelog"
