@@ -44,10 +44,6 @@ will show additional options you can specify when creating a project:
 
 ```
 Options:
-  -T|--TargetFramework  The target framework for the project
-                        text - Optional
-                        Default: net9.0
-
   -V|--Version          Plugin version
                         text - Optional
                         Default: 1.0.0

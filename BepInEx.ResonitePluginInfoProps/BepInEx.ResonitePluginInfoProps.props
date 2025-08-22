@@ -9,7 +9,7 @@
             <GeneratedText><![CDATA[
 namespace $(RootNamespace)
 {
-    public static class PluginInfo
+    public static class PluginMetadata
     {
         public const string GUID = "$(BepInExPluginGuid)"%3B
         public const string NAME = "$(BepInExPluginName)"%3B
@@ -19,7 +19,7 @@ namespace $(RootNamespace)
     }
 }
       ]]></GeneratedText>
-            <GeneratedFilePath>$(IntermediateOutputPath)PluginInfo.cs</GeneratedFilePath>
+            <GeneratedFilePath>$(IntermediateOutputPath)PluginMetadata.cs</GeneratedFilePath>
         </PropertyGroup>
         <ItemGroup>
             <Compile Include="$(GeneratedFilePath)" />

@@ -19,7 +19,7 @@ this will generate the following class:
 ```cs
 using System;
 
-public static class PluginInfo
+public static class PluginMetadata
 {
     public const string GUID = "Example.Plugin";
     public const string NAME = "My first plugin";
