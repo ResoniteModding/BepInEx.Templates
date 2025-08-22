@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <Version>{version}</Version>
-		<Authors>{authors}</Authors>
-		<TargetFramework>net9.0</TargetFramework>
-		<RepositoryUrl>{repositoryUrl}</RepositoryUrl>
-		<Product>$(AssemblyName)</Product>
-		<FirstAuthor>$([System.String]::Copy('$(Authors)').Split(',')[0].Trim())</FirstAuthor>
-		<PackageId>net.$(FirstAuthor).$(Product)</PackageId>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<Deterministic>true</Deterministic>
-		<GamePath>$(MSBuildThisFileDirectory)Resonite</GamePath>
-		<GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
-		<GamePath Condition="Exists('$(HOME)\.steam\steam\steamapps\common\Resonite\')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
+    <Authors>{authors}</Authors>
+    <TargetFramework>net9.0</TargetFramework>
+    <RepositoryUrl>{repositoryUrl}</RepositoryUrl>
+    <Product>$(AssemblyName)</Product>
+    <FirstAuthor>$([System.String]::Copy('$(Authors)').Split(',')[0].Trim())</FirstAuthor>
+    <PackageId>net.$(FirstAuthor).$(Product)</PackageId>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Deterministic>true</Deterministic>
+    <GamePath>$(MSBuildThisFileDirectory)Resonite</GamePath>
+    <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
+    <GamePath Condition="Exists('$(HOME)\.steam\steam\steamapps\common\Resonite\')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <RestoreAdditionalProjectSources>
       https://nuget-modding.resonite.net/v3/index.json;
@@ -22,20 +22,20 @@
 
   <ItemGroup>
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-		<PackageReference Include="HarmonyX" Version="2.14.0" />
-		<PackageReference Include="BepInEx.Core" Version="6.0.0-be.*" />
-		<PackageReference Include="BepInEx.NET.Common" Version="6.0.0-be.*" />
+    <PackageReference Include="HarmonyX" Version="2.14.0" />
+    <PackageReference Include="BepInEx.Core" Version="6.0.0-be.*" />
+    <PackageReference Include="BepInEx.NET.Common" Version="6.0.0-be.*" />
     <PackageReference Include="BepInEx.NET.CoreCLR" Version="6.0.0-be.*" IncludeAssets="compile" />
-		<PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-be.*" />
-		<PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.6.*" />
-		<Reference Include="FrooxEngine">
-		    <HintPath>$(GamePath)FrooxEngine.dll</HintPath>
-		</Reference>
-		<Reference Include="Elements.Core">
-			<HintPath>$(GamePath)Elements.Core.dll</HintPath>
-		</Reference>
-		<Reference Include="Renderite.Shared">
-			<HintPath>$(GamePath)Renderite.Shared.dll</HintPath>
-		</Reference>
+    <PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-be.*" />
+    <PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.6.*" />
+    <Reference Include="FrooxEngine">
+        <HintPath>$(GamePath)FrooxEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Elements.Core">
+      <HintPath>$(GamePath)Elements.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Renderite.Shared">
+      <HintPath>$(GamePath)Renderite.Shared.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
