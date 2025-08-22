@@ -1,0 +1,58 @@
+name: Build
+
+on: push
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0 # Need to fetch all for proper history
+            -   name: Collect build info
+                id: info
+                uses: actions/github-script@v6
+                with:
+                    script: |
+                        let buildType = "Development";
+                        if (context.ref == "refs/heads/master" && context.repo.owner == "ResoniteModding") {
+                            buildType = "BleedingEdge";
+                        }
+                        core.setOutput("build_type", buildType);
+                        let shortHash = "";
+                        await exec.exec("git", ["rev-parse", "--short", "HEAD"], {
+                            listeners: {
+                                stdout: d => shortHash += d.toString().trim(),
+                            }
+                        });
+                        core.setOutput("sha_short", shortHash);
+                        core.setOutput("build_id", context.runNumber);
+            -   uses: nrwl/last-successful-commit-action@v1
+                id: last_successful_commit
+                if: ${{ steps.info.outputs.build_type == 'BleedingEdge' }}
+                with:
+                    branch: master
+                    workflow_id: build.yml
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
+            -   uses: actions/setup-dotnet@v4
+                with:
+                    dotnet-version: "9.0.x"
+            -   name: Build
+                run: |
+                    dotnet build -c Release --version-suffix "be.${{ steps.info.outputs.build_id }}"
+                    dotnet pack -c Release --no-build --version-suffix "be.${{ steps.info.outputs.build_id }}" -o ./bin/dist
+            -   name: Publish to GitHub Packages
+                if: ${{ steps.info.outputs.build_type == 'BleedingEdge' }}
+                run: |
+                    dotnet nuget push ./bin/dist/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://nuget-modding.resonite.net/v3/index.json --skip-duplicate
+            -   name: Generate changelog
+                id: generate_changelog
+                if: ${{ steps.info.outputs.build_type == 'BleedingEdge' }}
+                run: |
+                    changelog=$(git --no-pager log --no-merges --pretty="format:- (\`%h\`) [%an] %s" ${{ steps.last_successful_commit.outputs.commit_hash }}..HEAD | sed ':a;N;$!ba;s/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+                    echo "::set-output name=changelog::$changelog"
+            -   name: Upload Artifacts
+                uses: actions/upload-artifact@v4
+                with:
+                    path: "./bin/dist/*.nupkg"
+                    name: "BepInEx_Templates_CI_${{ steps.info.outputs.build_type }}_${{ steps.info.outputs.sha_short }}_${{ steps.info.outputs.build_id || 0 }}"
