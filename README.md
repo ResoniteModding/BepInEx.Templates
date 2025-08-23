@@ -13,7 +13,7 @@ To install, use [dotnet](https://dotnet.microsoft.com/download) tool.
 These templates are for **BepInEx 6.0.0-be** builds:
 
 ```
-dotnet new install BepInEx.Templates::2.0.0-be.4 --nuget-source https://nuget.pkg.github.com/ResoniteModding/index.json
+dotnet new install BepInEx.Templates::2.0.0-be.* --nuget-source https://nuget-modding.resonite.net/v3/index.json
 ```
 
 This will install the following project templates:
