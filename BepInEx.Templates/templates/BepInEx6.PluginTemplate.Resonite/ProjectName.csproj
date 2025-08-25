@@ -14,6 +14,9 @@
     <GamePath>$(ResonitePath)/</GamePath>
     <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
     <GamePath Condition="Exists('$(HOME)\.steam\steam\steamapps\common\Resonite\')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
+    <CopyToPlugins>true</CopyToPlugins>
+    <PluginTargetDir>$(GamePath)BepInEx\plugins\$(AssemblyName)</PluginTargetDir>
+    <ThunderstoreDir>$(ProjectDir)dist\plugins\$(AssemblyName)</ThunderstoreDir>
     <RestoreAdditionalProjectSources>
       https://nuget-modding.resonite.net/v3/index.json;
     </RestoreAdditionalProjectSources>
@@ -35,25 +38,19 @@
       <HintPath>$(GamePath)Renderite.Shared.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <PdbFile Include="$(TargetDir)$(TargetName).pdb"/>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GamePath)BepInEx\plugins\$(AssemblyName)"/>
-      <Message Text="Copied $(TargetFileName) to $(GamePath)BepInEx\plugins\$(AssemblyName)" Importance="high"/>
-      <Copy SourceFiles="@(PdbFile)" DestinationFolder="$(GamePath)BepInEx\plugins\$(AssemblyName)"/>
-      <Message Text="Copied $(TargetName).pdb to $(GamePath)BepInEx\plugins\$(AssemblyName)" Importance="high"/>
-      <CallTarget Targets="BuildThunderstorePackage" Condition="'$(Configuration)' == 'Release'" />
-  </Target>
-
-  <Target Name="BuildThunderstorePackage">
-      <MakeDir Directories="$(ProjectDir)dist" />
-      <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)dist\plugins\$(AssemblyName)"/>
-      <Message Text="Copied $(TargetFileName) to $(ProjectDir)dist\plugins\$(AssemblyName) folder for Thunderstore packaging" Importance="high"/>
-      <Copy SourceFiles="@(PdbFile)" DestinationFolder="$(ProjectDir)dist\plugins\$(AssemblyName)"/>
-      <Message Text="Copied $(TargetName).pdb to $(ProjectDir)dist\plugins\$(AssemblyName) folder for Thunderstore packaging" Importance="high"/>
-      <Exec Command="dotnet tcli build" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" />
-      <Message Text="Built Thunderstore package successfully" Importance="high" Condition="'$(ExitCode)' == '0'" />
-      <Warning Text="Thunderstore package build failed. Run 'dotnet tcli build' manually to see the error details." Condition="'$(ExitCode)' != '0'" />
+    <ItemGroup>
+      <PluginFiles Include="$(TargetPath)" />
+      <PluginFiles Include="$(TargetDir)$(TargetName).pdb" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+    </ItemGroup>
+    
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginTargetDir)" Condition="'$(CopyToPlugins)' == 'true'" />
+    <Message Text="Copied plugin files to $(PluginTargetDir)" Importance="high" Condition="'$(CopyToPlugins)' == 'true'" />
+    
+    <MakeDir Directories="$(ThunderstoreDir)" />
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(ThunderstoreDir)" />
+    <Message Text="Prepared Thunderstore files in $(ThunderstoreDir)" Importance="high" />
   </Target>
 </Project>
