@@ -41,18 +41,47 @@ This project was created using the BepInEx 6 Resonite Plugin Template. This temp
 
 ### Building
 ```bash
-dotnet build              # Debug build - compiles and copies to BepInEx/plugins
-dotnet build -c Release   # Release build - also creates Thunderstore package
+dotnet build              # Debug build
+dotnet build -c Release   # Release build
 ```
 This will:
 - Compile your plugin
-- Copy it to `$(GamePath)/BepInEx/plugins`
-- Create a Thunderstore package in the `build` directory (Release mode only)
+- Copy it to `$(GamePath)/BepInEx/plugins` (if `CopyToPlugins` is true)
+- Prepare files in the `dist` directory for Thunderstore packaging
 
-### Publishing to Thunderstore
+### Publishing Your Mod
+
+#### Option 1: Thunderstore
 1. Replace the placeholder `icon.png` with your own mod icon ([icon requirements](https://wiki.thunderstore.io/mods/creating-a-package#icon))
 2. Update `thunderstore.toml` with your namespace and mod details
-3. Run `dotnet tcli publish` to upload to Thunderstore
+3. Build and publish your mod using one of these methods:
+
+##### Manual Upload
+```bash
+dotnet tcli build  # Creates a ZIP file in ./build folder
+```
+Then upload the generated ZIP file manually at [Thunderstore Package Creator](https://thunderstore.io/package/create/)
+
+##### CLI Publishing
+```bash
+# First, get your API token from https://thunderstore.io/settings/teams/
+dotnet tcli publish --token tss_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+This will automatically build and upload your mod to Thunderstore (no need to run `tcli build` first). See [Thunderstore CLI Authentication](https://github.com/thunderstore-io/thunderstore-cli/wiki#authentication) for details on obtaining your API token.
+
+#### Option 2: GitHub Releases (or other platforms)
+If you prefer not to use Thunderstore:
+1. Build your mod package using one of these methods:
+   ```bash
+   dotnet tcli build  # Creates a ZIP file in ./build folder
+   # OR manually zip the contents of ./dist folder after a Release build
+   ```
+2. Create a git tag for version tracking:
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+3. Upload the ZIP file to your GitHub Releases page or preferred distribution platform
 
 ### Resources
 - [Resonite Modding Documentation](https://modding.resonite.net/) - Comprehensive guide to Resonite modding
