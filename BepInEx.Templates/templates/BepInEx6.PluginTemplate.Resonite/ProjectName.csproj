@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>{version}</Version>
     <Authors>{authors}</Authors>
-    <TargetFramework>{targetFramework}</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <RepositoryUrl>{repositoryUrl}</RepositoryUrl>
     <PackageId>{packageId}</PackageId>
     <Product>ProjectName</Product>
@@ -35,18 +35,23 @@
       <HintPath>$(GamePath)Renderite.Shared.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <PdbFile Include="$(TargetDir)$(TargetName).pdb"/>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GamePath)BepInEx\plugins"/>
-      <Message Text="Copied $(TargetFileName) to $(GamePath)BepInEx\plugins" Importance="high"/>
+      <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GamePath)BepInEx\plugins\$(AssemblyName)"/>
+      <Message Text="Copied $(TargetFileName) to $(GamePath)BepInEx\plugins\$(AssemblyName)" Importance="high"/>
+      <Copy SourceFiles="@(PdbFile)" DestinationFolder="$(GamePath)BepInEx\plugins\$(AssemblyName)"/>
+      <Message Text="Copied $(TargetName).pdb to $(GamePath)BepInEx\plugins\$(AssemblyName)" Importance="high"/>
       <CallTarget Targets="BuildThunderstorePackage" Condition="'$(Configuration)' == 'Release'" />
   </Target>
 
   <Target Name="BuildThunderstorePackage">
       <MakeDir Directories="$(ProjectDir)dist" />
-      <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)dist"/>
-      <Message Text="Copied $(TargetFileName) to dist folder for Thunderstore packaging" Importance="high"/>
+      <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)dist\plugins\$(AssemblyName)"/>
+      <Message Text="Copied $(TargetFileName) to $(ProjectDir)dist\plugins\$(AssemblyName) folder for Thunderstore packaging" Importance="high"/>
+      <Copy SourceFiles="@(PdbFile)" DestinationFolder="$(ProjectDir)dist\plugins\$(AssemblyName)"/>
+      <Message Text="Copied $(TargetName).pdb to $(ProjectDir)dist\plugins\$(AssemblyName) folder for Thunderstore packaging" Importance="high"/>
       <Exec Command="dotnet tcli build" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" />
       <Message Text="Built Thunderstore package successfully" Importance="high" Condition="'$(ExitCode)' == '0'" />
       <Warning Text="Thunderstore package build failed. Run 'dotnet tcli build' manually to see the error details." Condition="'$(ExitCode)' != '0'" />
