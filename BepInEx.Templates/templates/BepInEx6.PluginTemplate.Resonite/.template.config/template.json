@@ -126,10 +126,6 @@
       "parameters": {
         "symbols": [
           {
-            "type": "const",
-            "value": "net."
-          },
-          {
             "type": "ref",
             "value": "FirstAuthorSafe"
           },
