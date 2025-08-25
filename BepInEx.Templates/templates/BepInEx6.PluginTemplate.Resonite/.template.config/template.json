@@ -33,19 +33,6 @@
       "datatype": "text",
       "defaultValue": ""
     },
-    "Framework": {
-      "type": "parameter",
-      "description": "Target .NET framework version",
-      "datatype": "choice",
-      "choices": [
-        {
-          "choice": "net9.0",
-          "description": ".NET 9.0"
-        }
-      ],
-      "defaultValue": "net9.0",
-      "replaces": "{targetFramework}"
-    },
     "GitInit": {
       "type": "parameter",
       "description": "Initialize a git repository",
