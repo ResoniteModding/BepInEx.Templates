@@ -52,8 +52,6 @@ This will:
 2. Update `thunderstore.toml` with your namespace and mod details
 3. Run `dotnet tcli publish` to upload to Thunderstore
 
-Note: Thunderstore supports including a `CHANGELOG.md` file in your package, but this template doesn't configure it by default. You can add one if desired.
-
 ### Resources
 - [Resonite Modding Documentation](https://modding.resonite.net/) - Comprehensive guide to Resonite modding
 - [Thunderstore Wiki](https://wiki.thunderstore.io/) - Complete guide to package creation and publishing

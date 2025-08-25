@@ -24,6 +24,10 @@ outdir = "./build"
 source = "./dist"
 target = ""
 
+# Uncomment the following lines to include CHANGELOG file in your mod package. https://wiki.thunderstore.io/mods/updating-a-package#changelog
+# [[build.copy]]
+# source = "./CHANGELOG.md"
+# target = "/"
 
 [publish]
 repository = "https://thunderstore.io"
