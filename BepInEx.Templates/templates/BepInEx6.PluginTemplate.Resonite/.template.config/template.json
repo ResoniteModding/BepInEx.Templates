@@ -5,6 +5,7 @@
   "identity": "BepInEx6.PluginTemplate.Resonite",
   "name": "BepInEx 6 Resonite Plugin",
   "shortName": "bep6plugin_resonite",
+  "description": "Creates a BepInEx 6 plugin for Resonite with pre-configured references, build paths, and project structure",
   "tags": {
     "language": "C#",
     "type": "project"
@@ -14,7 +15,7 @@
   "symbols": {
     "Version": {
       "type": "parameter",
-      "description": "Plugin version",
+      "description": "Plugin version (e.g., '1.0.0')",
       "datatype": "text",
       "replaces": "{version}",
       "defaultValue": "1.0.0"
@@ -24,14 +25,147 @@
       "description": "Comma-separated list of plugin authors",
       "datatype": "text",
       "replaces": "{authors}",
-      "defaultValue": "Your Name"
+      "defaultValue": "YourName"
     },
     "RepositoryUrl": {
       "type": "parameter",
-      "description": "Repository URL for the plugin",
+      "description": "Repository URL for the plugin (leave empty for auto-generated: https://github.com/[Author]/[ProjectName])",
       "datatype": "text",
-      "replaces": "{repositoryUrl}",
-      "defaultValue": "https://github.com/OWNER/ProjectName"
+      "defaultValue": ""
+    },
+    "GitInit": {
+      "type": "parameter",
+      "description": "Initialize a git repository",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "RepositoryUrlComputed": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "RepositoryUrl",
+        "fallbackVariableName": "DefaultRepositoryUrl"
+      },
+      "replaces": "{repositoryUrl}"
+    },
+    "DefaultRepositoryUrl": {
+      "type": "generated",
+      "generator": "join",
+      "parameters": {
+        "symbols": [
+          {
+            "type": "const",
+            "value": "https://github.com/"
+          },
+          {
+            "type": "ref",
+            "value": "FirstAuthor"
+          },
+          {
+            "type": "const",
+            "value": "/"
+          },
+          {
+            "type": "ref",
+            "value": "name"
+          }
+        ],
+        "separator": ""
+      }
+    },
+    "FirstAuthor": {
+      "type": "generated",
+      "generator": "regex",
+      "datatype": "text",
+      "parameters": {
+        "source": "Authors",
+        "steps": [
+          {
+            "regex": "^([^,]+).*$",
+            "replacement": "$1"
+          },
+          {
+            "regex": "^\\s+|\\s+$",
+            "replacement": ""
+          }
+        ]
+      },
+      "replaces": "{firstAuthor}"
+    },
+    "FirstAuthorSafe": {
+      "type": "generated",
+      "generator": "regex",
+      "datatype": "text",
+      "parameters": {
+        "source": "FirstAuthor",
+        "steps": [
+          {
+            "regex": "[^A-Za-z0-9_\\.]",
+            "replacement": "_"
+          }
+        ]
+      }
+    },
+    "ProjectNameSafe": {
+      "type": "generated",
+      "generator": "regex",
+      "datatype": "text",
+      "parameters": {
+        "source": "name",
+        "steps": [
+          {
+            "regex": "[^A-Za-z0-9_\\.]",
+            "replacement": "_"
+          }
+        ]
+      }
+    },
+    "PackageId": {
+      "type": "generated",
+      "generator": "join",
+      "parameters": {
+        "symbols": [
+          {
+            "type": "ref",
+            "value": "FirstAuthorSafe"
+          },
+          {
+            "type": "const",
+            "value": "."
+          },
+          {
+            "type": "ref",
+            "value": "ProjectNameSafe"
+          }
+        ],
+        "separator": ""
+      },
+      "replaces": "{packageId}"
     }
-  }
+  },
+  "postActions": [
+    {
+      "condition": "(GitInit)",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "description": "Initialize git repository",
+      "manualInstructions": [
+        { "text": "Run 'git init'" }
+      ],
+      "args": {
+        "executable": "git",
+        "args": "init"
+      },
+      "continueOnError": true
+    },
+    {
+      "actionId": "AC1156F7-BB77-4DB8-B28F-24EEBCCA1E5C",
+      "description": "Next steps",
+      "manualInstructions": [
+        {
+          "text": "\nYour BepInEx 6 Resonite plugin has been created successfully!\n\nTo get started:\n  cd into your new project directory\n\nNext steps:\n  1. Set ResonitePath environment variable or update GamePath in the .csproj to your Resonite installation folder\n  2. Review and update project metadata in the .csproj file (Version, Authors, etc.)\n  3. Build with 'dotnet build' - this will automatically copy the plugin to BepInEx/plugins folder\n\nPublishing to Thunderstore:\n  1. Update thunderstore.toml with your mod details\n  2. Replace icon.png with your mod icon\n  3. Either:\n     - Run 'dotnet tcli build' to create a ZIP, then upload at https://thunderstore.io/package/create\n     - Or run 'dotnet tcli publish --token YOUR_API_TOKEN' to build and upload automatically\n\nFor more information, see the README.md file in your project."
+        }
+      ],
+      "continueOnError": true
+    }
+  ]
 }

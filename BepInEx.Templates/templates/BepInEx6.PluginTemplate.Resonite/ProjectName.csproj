@@ -5,16 +5,18 @@
     <Authors>{authors}</Authors>
     <TargetFramework>net9.0</TargetFramework>
     <RepositoryUrl>{repositoryUrl}</RepositoryUrl>
+    <PackageId>{packageId}</PackageId>
     <Product>ProjectName</Product>
-    <FirstAuthor>$([System.String]::Copy('$(Authors)').Split(',')[0].Trim())</FirstAuthor>
-    <PackageId>$(FirstAuthor).$(AssemblyName)</PackageId>
+    <RootNamespace>ProjectName</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
     <GamePath>$(ResonitePath)/</GamePath>
     <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
     <GamePath Condition="Exists('$(HOME)\.steam\steam\steamapps\common\Resonite\')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
-    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <CopyToPlugins>true</CopyToPlugins>
+    <PluginTargetDir>$(GamePath)BepInEx\plugins\$(AssemblyName)</PluginTargetDir>
+    <ThunderstoreDir>$(ProjectDir)dist\plugins\$(AssemblyName)</ThunderstoreDir>
     <RestoreAdditionalProjectSources>
       https://nuget-modding.resonite.net/v3/index.json;
     </RestoreAdditionalProjectSources>
@@ -26,12 +28,29 @@
     <PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.8.*" />
     <Reference Include="FrooxEngine">
       <HintPath>$(GamePath)FrooxEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Elements.Core">
       <HintPath>$(GamePath)Elements.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Renderite.Shared">
       <HintPath>$(GamePath)Renderite.Shared.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <PluginFiles Include="$(TargetPath)" />
+      <PluginFiles Include="$(TargetDir)$(TargetName).pdb" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+    </ItemGroup>
+    
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginTargetDir)" Condition="'$(CopyToPlugins)' == 'true'" />
+    <Message Text="Copied plugin files to $(PluginTargetDir)" Importance="high" Condition="'$(CopyToPlugins)' == 'true'" />
+    
+    <MakeDir Directories="$(ThunderstoreDir)" />
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(ThunderstoreDir)" />
+    <Message Text="Prepared Thunderstore files in $(ThunderstoreDir)" Importance="high" />
+  </Target>
 </Project>
