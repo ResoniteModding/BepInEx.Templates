@@ -10,30 +10,17 @@ A [Resonite](https://resonite.com/) mod that [describe what your mod does here].
 
 ---
 
-## Template Information
+## Development Notes
 
-This project was created using the BepInEx 6 Resonite Plugin Template. This template provides:
+### PluginMetadata
+This project uses **BepInEx.ResonitePluginInfoProps** which automatically generates a `PluginMetadata` class from your .csproj properties:
+- `PackageID` → `GUID`
+- `Product` → `NAME` 
+- `Version` → `VERSION`
+- `Authors` → `AUTHORS`
+- `RepositoryUrl` → `REPOSITORY_URL`
 
-### Features
-- **Pre-configured BepInEx 6 setup** - All necessary references and dependencies are already configured
-- **Auto-copy on build** - Built DLLs are automatically copied to your BepInEx plugins folder for rapid testing
-- **Thunderstore integration** - Includes `thunderstore.toml` and automatic package building
-- **Resonite-specific references** - FrooxEngine, Elements.Core, and other Resonite assemblies are pre-referenced
-- **Build path detection** - Automatically detects common Resonite installation paths (Steam, environment variable)
-- **BepInEx.ResonitePluginInfoProps** - Automatically generates a `PluginMetadata` class from your .csproj properties:
-  - `PackageID` → `GUID`
-  - `Product` → `NAME` 
-  - `Version` → `VERSION`
-  - `Authors` → `AUTHORS`
-  - `RepositoryUrl` → `REPOSITORY_URL`
-  
-  These constants are used in your BepInPlugin attribute, keeping all metadata synchronized in one place
-
-### Project Structure
-- `Plugin.cs` - Main plugin entry point with BepInEx attributes
-- `ProjectName.csproj` - Project configuration with all necessary references
-- `thunderstore.toml` - Thunderstore package configuration
-- `.config/dotnet-tools.json` - Local tool manifest for Thunderstore CLI
+These constants are used in your BepInPlugin attribute, keeping all metadata synchronized in one place.
 
 ### Configuration
 1. **GamePath** - Set via `ResonitePath` environment variable or update in `.csproj` to point to your Resonite installation
@@ -76,11 +63,13 @@ If you prefer not to use Thunderstore:
    dotnet tcli build  # Creates a ZIP file in ./build folder
    # OR manually zip the contents of ./dist folder after a Release build
    ```
-2. Create a git tag for version tracking:
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
+2. Create a release with version tracking:
+   - **Via command line:**
+     ```bash
+     git tag v1.0.0
+     git push origin v1.0.0
+     ```
+   - **Via website:** Create a new release on your repository's Releases page - this automatically creates a git tag
 3. Upload the ZIP file to your GitHub Releases page or preferred distribution platform
 
 ### Resources
