@@ -24,14 +24,92 @@
       "description": "Comma-separated list of plugin authors",
       "datatype": "text",
       "replaces": "{authors}",
-      "defaultValue": "Your Name"
+      "defaultValue": "YourName"
     },
     "RepositoryUrl": {
       "type": "parameter",
       "description": "Repository URL for the plugin",
       "datatype": "text",
-      "replaces": "{repositoryUrl}",
-      "defaultValue": "https://github.com/OWNER/ProjectName"
+      "defaultValue": ""
+    },
+    "RepositoryUrlComputed": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "RepositoryUrl",
+        "fallbackVariableName": "DefaultRepositoryUrl"
+      },
+      "replaces": "{repositoryUrl}"
+    },
+    "DefaultRepositoryUrl": {
+      "type": "generated",
+      "generator": "join",
+      "parameters": {
+        "symbols": [
+          {
+            "type": "const",
+            "value": "https://github.com/"
+          },
+          {
+            "type": "ref",
+            "value": "FirstAuthor"
+          },
+          {
+            "type": "const",
+            "value": "/"
+          },
+          {
+            "type": "ref",
+            "value": "name"
+          }
+        ],
+        "separator": ""
+      }
+    },
+    "FirstAuthor": {
+      "type": "generated",
+      "generator": "regex",
+      "datatype": "text",
+      "parameters": {
+        "source": "Authors",
+        "steps": [
+          {
+            "regex": "^([^,]+).*$",
+            "replacement": "$1"
+          },
+          {
+            "regex": "^\\s+|\\s+$",
+            "replacement": ""
+          }
+        ]
+      },
+      "replaces": "{firstAuthor}"
+    },
+    "PackageId": {
+      "type": "generated",
+      "generator": "join",
+      "parameters": {
+        "symbols": [
+          {
+            "type": "const",
+            "value": "net."
+          },
+          {
+            "type": "ref",
+            "value": "FirstAuthor"
+          },
+          {
+            "type": "const",
+            "value": "."
+          },
+          {
+            "type": "ref",
+            "value": "name"
+          }
+        ],
+        "separator": ""
+      },
+      "replaces": "{packageId}"
     }
   }
 }
