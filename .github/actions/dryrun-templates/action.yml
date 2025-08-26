@@ -9,5 +9,7 @@ runs:
     - name: Test BepInEx6 .NET Core Template
       if: always()
       run: |
-        dotnet new bep6plugin_resonite --dry-run --diagnostics
+        mkdir -p temp-test
+        cd temp-test
+        dotnet new bep6resonite --dry-run --diagnostics
       shell: bash
