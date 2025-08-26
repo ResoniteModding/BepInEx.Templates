@@ -8,7 +8,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <Description>Helper build target that generates PluginInfo class based on assembly metadata.</Description>
-        <PackageTags>BepInEx;Build;Props;Resonite</PackageTags>
+        <PackageTags>BepInEx;Build;Props;Resonite;Modding</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFrameworks>net20;netstandard2.0</TargetFrameworks>
         <PackageOutputPath>$(SolutionDir)nuget</PackageOutputPath>

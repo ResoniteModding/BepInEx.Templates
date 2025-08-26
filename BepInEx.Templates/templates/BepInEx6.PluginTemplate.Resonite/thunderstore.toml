@@ -8,7 +8,7 @@ namespace = "{firstAuthor}" # TODO: Change this to the team you're uploading the
 name = "ProjectName" # Change this to your mod's name, no spaces or special characters, max 128 characters
 versionNumber = "{version}" # Change this to your mod's version, must be in semantic versioning format (e.g. 1.0.0, 2.1.3, 0.1.0-alpha.1)
 description = "Example mod description" # TODO: Change this to your mod's description, max 250 characters
-websiteUrl = "" # TODO: Change this to your mod's website/repository, or leave blank
+websiteUrl = "{repositoryUrl}" # TODO: Change this to your mod's website/repository, or leave blank
 containsNsfwContent = false
 
 [package.dependencies] 

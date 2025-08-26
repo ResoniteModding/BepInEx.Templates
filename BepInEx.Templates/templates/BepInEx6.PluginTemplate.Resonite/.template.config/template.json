@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "ResoniteModding",
-  "classifications": [ "BepInEx", "BepInEx 6" , "Plugin" , "CoreCLR", ".NET 9", "Resonite", "Thunderstore" ],
+  "classifications": [ "BepInEx", "BepInEx 6" , "Plugin" , "CoreCLR", ".NET Core", "Resonite" ],
   "identity": "BepInEx6.PluginTemplate.Resonite",
   "name": "BepInEx 6 Resonite Plugin (.NET 9, Thunderstore Ready)",
   "shortName": "bep6resonite",
