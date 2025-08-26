@@ -11,5 +11,5 @@ runs:
       run: |
         mkdir -p temp-test
         cd temp-test
-        dotnet new bep6plugin_resonite --dry-run --diagnostics
+        dotnet new bep6resonite --dry-run --diagnostics
       shell: bash

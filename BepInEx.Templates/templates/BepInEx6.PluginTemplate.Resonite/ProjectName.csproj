@@ -11,21 +11,31 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
-    <GamePath>$(ResonitePath)/</GamePath>
-    <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
-    <GamePath Condition="Exists('$(HOME)\.steam\steam\steamapps\common\Resonite\')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyToPlugins>true</CopyToPlugins>
+    <GamePath Condition="'$(ResonitePath)' != ''">$(ResonitePath)/</GamePath>
+    <GamePath Condition="Exists('$(MSBuildProgramFiles32)\Steam\steamapps\common\Resonite\')">$(MSBuildProgramFiles32)\Steam\steamapps\common\Resonite\</GamePath>
+    <GamePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
     <PluginTargetDir>$(GamePath)BepInEx\plugins\$(AssemblyName)</PluginTargetDir>
-    <ThunderstoreDir>$(ProjectDir)dist\plugins\$(AssemblyName)</ThunderstoreDir>
     <RestoreAdditionalProjectSources>
       https://nuget-modding.resonite.net/v3/index.json;
     </RestoreAdditionalProjectSources>
   </PropertyGroup>
 
+  <!-- Modding dependencies -->
   <ItemGroup>
     <PackageReference Include="BepInEx.NET.CoreCLR" Version="6.0.0-be.*" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.ResonitePluginInfoProps" Version="3.*" />
     <PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.8.*" />
+  </ItemGroup>
+
+  <!-- NuGet fallback stripped game references -->
+  <ItemGroup Condition="!Exists('$(GamePath)')">
+    <PackageReference Include="Resonite.GameLibs" Version="2025.*" />
+  </ItemGroup>
+
+  <!-- Local game references -->
+  <ItemGroup Condition="Exists('$(GamePath)')">
     <Reference Include="FrooxEngine">
       <HintPath>$(GamePath)FrooxEngine.dll</HintPath>
       <Private>False</Private>
@@ -40,6 +50,7 @@
     </Reference>
   </ItemGroup>
 
+  <!-- Post-build copy to game plugins folder -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
       <PluginFiles Include="$(TargetPath)" />
@@ -48,9 +59,5 @@
     
     <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginTargetDir)" Condition="'$(CopyToPlugins)' == 'true'" />
     <Message Text="Copied plugin files to $(PluginTargetDir)" Importance="high" Condition="'$(CopyToPlugins)' == 'true'" />
-    
-    <MakeDir Directories="$(ThunderstoreDir)" />
-    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(ThunderstoreDir)" />
-    <Message Text="Prepared Thunderstore files in $(ThunderstoreDir)" Importance="high" />
   </Target>
 </Project>

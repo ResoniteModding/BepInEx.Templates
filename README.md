@@ -18,18 +18,18 @@ dotnet new install BepInEx.Templates::2.0.0-be.* --nuget-source https://nuget-mo
 
 This will install the following project templates:
 
-| Templates                         | Short Name              | Language | Tags                                        |
-|-----------------------------------|-------------------------|----------|---------------------------------------------|
-| BepInEx 6 Resonite Plugin         | bep6plugin_resonite     | [C#]     | BepInEx/BepInEx 6/Plugin/Resonite/.NET Core |
+| Templates                                              | Short Name    | Language | Tags                                                     |
+|--------------------------------------------------------|---------------|----------|----------------------------------------------------------|
+| BepInEx 6 Resonite Plugin (.NET 9, Thunderstore Ready) | bep6resonite  | [C#]     | BepInEx/BepInEx 6/Plugin/CoreCLR/.NET 9/Resonite/Thunderstore |
 
 ## Using a template
 
 To use a template, you can use `dotnet new` command.  
 If you use Rider or Visual Studio 2022, you will be able to select the templates when creating a new solution.
 
-For example, to create a BepInEx 5 plugin project:
+For example, to create a BepInEx 6 plugin project:
 ```
-dotnet new bep6plugin_resonite -n MyPluginName
+dotnet new bep6resonite -n MyPluginName
 ```
 
 This will create a folder name MyPluginName with an example plugin project.
@@ -37,24 +37,32 @@ This will create a folder name MyPluginName with an example plugin project.
 All templates have additional options. To view them, use `--help` switch. For example:
 
 ```
-dotnet new bep6plugin_resonite --help
+dotnet new bep6resonite --help
 ```
 
 will show additional options you can specify when creating a project:
 
 ```
 Options:
-  -V|--Version          Plugin version
+  -ve|--version          Plugin version (e.g., '1.0.0')
                         text - Optional
                         Default: 1.0.0
 
-  -A|--Authors          Comma-separated list of plugin authors
+  -au|--authors          Comma-separated list of plugin authors
                         text - Optional
-                        Default: Your Name
+                        Default: YourName
 
-  -R|--RepositoryUrl    Repository URL for the plugin
+  -r|--repositoryUrl    Repository URL for the plugin (leave empty for auto-generated: https://github.com/[Author]/[ProjectName])
                         text - Optional
-                        Default: https://github.com/OWNER/BepInEx6.PluginTemplate.Resonite
+                        Default: 
+
+  -p|--packageId        Package ID for the plugin (leave empty for auto-generated: [FirstAuthor].[ProjectName])
+                        text - Optional
+                        Default: 
+
+  -g|--gitInit          Initialize a git repository
+                        bool - Optional
+                        Default: true
 ```
 
 ## Documentation, guides and more

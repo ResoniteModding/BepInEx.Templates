@@ -1,5 +1,5 @@
 # ProjectName
-A [Resonite](https://resonite.com/) mod that [describe what your mod does here].
+A [Resonite](https://resonite.com/) mod that [TODO: describe what your mod does here].
 
 ## Installation (Manual)
 1. Install [BepisLoader](https://github.com/ResoniteModding/BepisLoader) for Resonite.
@@ -10,7 +10,14 @@ A [Resonite](https://resonite.com/) mod that [describe what your mod does here].
 
 ---
 
-## Development Notes
+## Template Instructions (TODO: DELETE THIS BEFORE PUBLISHING)
+
+### Getting Started
+**Important:** Search for "TODO" throughout your codebase and fill in all the required fields:
+- Update the mod description in this README
+- Complete any TODO items in your plugin code
+- Review and update metadata in the `.csproj` file
+- Update the mod details in `thunderstore.toml`
 
 ### PluginMetadata
 This project uses **BepInEx.ResonitePluginInfoProps** which automatically generates a `PluginMetadata` class from your .csproj properties:
@@ -23,7 +30,10 @@ This project uses **BepInEx.ResonitePluginInfoProps** which automatically genera
 These constants are used in your BepInPlugin attribute, keeping all metadata synchronized in one place.
 
 ### Configuration
-1. **GamePath** - Set via `ResonitePath` environment variable or update in `.csproj` to point to your Resonite installation
+1. **GamePath** - The project automatically detects your Resonite installation:
+   - Checks `ResonitePath` environment variable first
+   - Falls back to common Steam installation paths on Windows and Linux
+   - If Resonite is not found locally, uses NuGet package `Resonite.GameLibs` for stripped game references
 2. **Metadata** - Update your plugin metadata (Version, Authors, Product, etc.) in the `.csproj` file
 
 ### Building
@@ -32,9 +42,9 @@ dotnet build              # Debug build
 dotnet build -c Release   # Release build
 ```
 This will:
-- Compile your plugin
-- Copy it to `$(GamePath)/BepInEx/plugins` (if `CopyToPlugins` is true)
-- Prepare files in the `dist` directory for Thunderstore packaging
+- Compile your plugin using either local game references (if found) or NuGet package references (fallback)
+- Copy it to `$(GamePath)/BepInEx/plugins` (if `CopyToPlugins` is true and local game is found)
+- Output is placed directly in the project directory (no target framework subdirectory)
 
 ### Publishing Your Mod
 
