@@ -11,9 +11,9 @@ description = "Example mod description" # TODO: Change this to your mod's descri
 websiteUrl = "{repositoryUrl}" # TODO: Change this to your mod's website/repository, or leave blank
 containsNsfwContent = false
 
-[package.dependencies] 
 # List any dependencies your mod has here, in the format "namespace-modname" = "version-constraint"
-# TODO: Add BepInEx dependency when Thunderstore supports it
+[package.dependencies] 
+ResoniteModding-BepisLoader = "1.3.1"
 
 [build]
 icon = "./icon.png"
