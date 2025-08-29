@@ -1,4 +1,6 @@
 # ProjectName
+[![Thunderstore Badge](https://modding.resonite.net/assets/available-on-thunderstore.svg)](https://thunderstore.io/c/resonite/)
+
 A [Resonite](https://resonite.com/) mod that [TODO: describe what your mod does here].
 
 ## Installation (Manual)
