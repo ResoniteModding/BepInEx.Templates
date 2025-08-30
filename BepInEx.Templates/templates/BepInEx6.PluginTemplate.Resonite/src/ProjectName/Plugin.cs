@@ -9,7 +9,7 @@ namespace ProjectName;
 [BepInDependency(BepInExResoniteShim.PluginMetadata.GUID, BepInDependency.DependencyFlags.HardDependency)]
 public class Plugin : BasePlugin
 {
-    internal static new ManualLogSource Log;
+    internal static new ManualLogSource? Log;
 
     public override void Load()
     {

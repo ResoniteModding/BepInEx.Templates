@@ -10,6 +10,7 @@
     "language": "C#",
     "type": "project"
   },
+  "guids": ["827E0CD3-B72D-47B6-A68D-7590B98EB39B", "67CE1C26-43EB-4A9A-978A-2A411A6D825B"],
   "preferNameDirectory": true,
   "sourceName": "ProjectName",
   "symbols": {
