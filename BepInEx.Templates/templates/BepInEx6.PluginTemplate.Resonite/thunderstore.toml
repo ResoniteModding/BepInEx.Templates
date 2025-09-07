@@ -22,12 +22,12 @@ outdir = "./build"
 
 # Copy the compiled DLL to the plugins folder in the mod package
 [[build.copy]]
-source = "./src/ProjectName/bin/Release/ProjectName.dll"
+source = "./ProjectName/bin/Release/ProjectName.dll"
 target = "plugins/ProjectName/"
 
 # Include the PDB file for better debugging support
 [[build.copy]]
-source = "./src/ProjectName/bin/Release/ProjectName.pdb"
+source = "./ProjectName/bin/Release/ProjectName.pdb"
 target = "plugins/ProjectName/"
 
 # Uncomment the following lines to include CHANGELOG file in your mod package. https://wiki.thunderstore.io/mods/updating-a-package#changelog
