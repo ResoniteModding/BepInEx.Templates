@@ -21,6 +21,7 @@
     <RestoreAdditionalProjectSources>
       https://nuget-modding.resonite.net/v3/index.json;
     </RestoreAdditionalProjectSources>
+	<ResoniteArgs>$(ResoniteLaunchArguments)</ResoniteArgs>
   </PropertyGroup>
 
   <!-- Modding dependencies -->
