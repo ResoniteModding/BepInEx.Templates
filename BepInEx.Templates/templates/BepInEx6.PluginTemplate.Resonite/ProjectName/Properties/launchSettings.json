@@ -3,7 +3,7 @@
     "Launch": {
       "commandName": "Executable",
       "executablePath": "$(GamePath)Renderite.Host.exe",
-      "commandLineArgs": "-Screen $(ResoniteArgs)",
+      "commandLineArgs": "-Screen $(ResoniteLaunchArguments)",
       "workingDirectory": "$(GamePath)"
     }
   }
