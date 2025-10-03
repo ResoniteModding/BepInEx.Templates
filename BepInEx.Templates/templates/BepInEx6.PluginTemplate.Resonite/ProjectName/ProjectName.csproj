@@ -26,7 +26,7 @@
   <!-- Modding dependencies -->
   <ItemGroup>
     <PackageReference Include="BepInEx.ResonitePluginInfoProps" Version="3.*" />
-    <PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.8.*" />
+    <PackageReference Include="ResoniteModding.BepInExResoniteShim" Version="0.9.*" />
     <PackageReference Include="ResoniteModding.BepisResoniteWrapper" Version="1.*" />
   </ItemGroup>
 
