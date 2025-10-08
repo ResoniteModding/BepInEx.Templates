@@ -7,7 +7,7 @@ Generates `PluginInfo.cs` based on csproj tags.
 Define the following properties in your `csproj`:
 
 ```xml
-<AssemblyName>Example.Plugin</AssemblyName>
+<PackageId>Example.Plugin</AssemblyName>
 <Product>My first plugin</Product>
 <Version>1.0.0</Version>
 <Authors>ResoniteModding</Authors>
