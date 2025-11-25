@@ -4,7 +4,7 @@ A collection of .NET project templates for 6 plugins for developing Resonite mod
 
 ## Installation
 
-You will need [.NET 9 or newer](https://dotnet.microsoft.com/download) to use the templates.
+You will need [.NET 10 or newer](https://dotnet.microsoft.com/download) to use the templates.
 
 To install, use [dotnet](https://dotnet.microsoft.com/download) tool.
 
@@ -20,7 +20,7 @@ This will install the following project templates:
 
 | Templates                                              | Short Name    | Language | Tags                                                     |
 |--------------------------------------------------------|---------------|----------|----------------------------------------------------------|
-| BepInEx 6 Resonite Plugin (.NET 9, Thunderstore Ready) | bep6resonite  | [C#]     | BepInEx/BepInEx 6/Plugin/CoreCLR/.NET 9/Resonite/Thunderstore |
+| BepInEx 6 Resonite Plugin (.NET 10, Thunderstore Ready) | bep6resonite  | [C#]     | BepInEx/BepInEx 6/Plugin/CoreCLR/.NET 10/Resonite/Thunderstore |
 
 ## Using a template
 
