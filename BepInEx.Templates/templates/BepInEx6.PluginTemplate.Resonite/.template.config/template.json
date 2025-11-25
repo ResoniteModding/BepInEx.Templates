@@ -3,9 +3,9 @@
   "author": "ResoniteModding",
   "classifications": [ "BepInEx", "BepInEx 6" , "Plugin" , "CoreCLR", ".NET Core", "Resonite" ],
   "identity": "BepInEx6.PluginTemplate.Resonite",
-  "name": "BepInEx 6 Resonite Plugin (.NET 9, Thunderstore Ready)",
+  "name": "BepInEx 6 Resonite Plugin (.NET 10, Thunderstore Ready)",
   "shortName": "bep6resonite",
-  "description": "Creates a BepInEx 6 plugin for Resonite with .NET 9, auto-detection of game path, configurable package ID, and Thunderstore publishing support",
+  "description": "Creates a BepInEx 6 plugin for Resonite with .NET 10, auto-detection of game path, configurable package ID, and Thunderstore publishing support",
   "tags": {
     "language": "C#",
     "type": "project"

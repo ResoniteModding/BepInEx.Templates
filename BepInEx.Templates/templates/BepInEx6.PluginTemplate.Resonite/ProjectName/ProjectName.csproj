@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>{version}</Version>
     <Authors>{authors}</Authors>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RepositoryUrl>{repositoryUrl}</RepositoryUrl>
     <PackageId>{packageId}</PackageId>
     <Product>ProjectName</Product>
