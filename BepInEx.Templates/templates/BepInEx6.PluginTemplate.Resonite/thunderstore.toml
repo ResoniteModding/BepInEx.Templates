@@ -1,18 +1,36 @@
+#if (!no-tutorial)
 # This file is used by the Thunderstore CLI to build and publish your mod to Thunderstore. https://github.com/thunderstore-io/thunderstore-cli
+#endif
 
 [config]
 schemaVersion = "0.0.1"
 
 [package]
-namespace = "{firstAuthor}" # TODO: Change this to the team you're uploading the mod to on Thunderstore
-name = "ProjectName" # Change this to your mod's name, no spaces or special characters, max 128 characters
+#if (!no-tutorial)
+# TODO: Change this to the team you're uploading the mod to on Thunderstore
+#endif
+namespace = "{firstAuthor}"
+#if (!no-tutorial)
+# Change this to your mod's name, no spaces or special characters, max 128 characters
+#endif
+name = "ProjectName"
+#if (!no-tutorial)
 # versionNumber = "{version}" # Uncomment this if publishing via manual tcli! Change this to your mod's version, must be in semantic versioning format (e.g. 1.0.0, 2.1.3, 0.1.0-alpha.1)
-description = "Example mod description" # TODO: Change this to your mod's description, max 250 characters
-websiteUrl = "{repositoryUrl}" # TODO: Change this to your mod's website/repository, or leave blank
+#endif
+#if (!no-tutorial)
+# TODO: Change this to your mod's description, max 250 characters
+#endif
+description = "Example mod description"
+#if (!no-tutorial)
+# TODO: Change this to your mod's website/repository, or leave blank
+#endif
+websiteUrl = "{repositoryUrl}"
 containsNsfwContent = false
 
+#if (!no-tutorial)
 # List any dependencies your mod has here, in the format "namespace-modname" = "version-constraint"
-[package.dependencies] 
+#endif
+[package.dependencies]
 ResoniteModding-BepisLoader = "1.7.0"
 ResoniteModding-BepisResoniteWrapper = "1.0.2"
 
@@ -21,16 +39,23 @@ icon = "./icon.png"
 readme = "./README.md"
 outdir = "./build"
 
+#if (!no-tutorial)
 # Copy the compiled DLL to the plugins folder in the mod package
+#endif
 [[build.copy]]
 source = "./ProjectName/bin/Release/ProjectName.dll"
 target = "plugins/ProjectName/"
 
+#if (!no-tutorial)
 # Uncomment the following lines to include CHANGELOG file in your mod package. https://wiki.thunderstore.io/mods/updating-a-package#changelog
 # [[build.copy]]
 # source = "./CHANGELOG.md"
 # target = "/"
+#endif
 
+#if (!no-tutorial)
+# Uncomment the following line to include LICENSE file in your mod package, if you have one.
+#endif
 [[build.copy]]
 source = "./LICENSE"
 target = "/"
@@ -40,4 +65,7 @@ repository = "https://thunderstore.io"
 communities = ["resonite"]
 
 [publish.categories]
-resonite = [ "mods" ] # TODO: Change this to your mod's categories, see https://thunderstore.io/api/experimental/community/resonite/category/ for a list of available categories
+#if (!no-tutorial)
+# TODO: Change this to your mod's categories, see https://thunderstore.io/api/experimental/community/resonite/category/ for a list of available categories
+#endif
+resonite = [ "mods" ]

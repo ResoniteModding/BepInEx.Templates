@@ -31,7 +31,9 @@
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <!--#if (!no-tutorial) -->
   <!-- Modding dependencies -->
+  <!--#endif -->
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="11.0.100" PrivateAssets="all" />
     <PackageReference Include="BepInEx.NET.CoreCLR" Version="6.0.0-be.*" IncludeAssets="compile" />
@@ -40,12 +42,16 @@
     <PackageReference Include="ResoniteModding.BepisResoniteWrapper" Version="1.*" />
   </ItemGroup>
 
+  <!--#if (!no-tutorial) -->
   <!-- NuGet fallback stripped game references -->
+  <!--#endif -->
   <ItemGroup Condition="!Exists('$(GamePath)')">
     <PackageReference Include="Resonite.GameLibs" Version="*" PrivateAssets="all" />
   </ItemGroup>
 
+  <!--#if (!no-tutorial) -->
   <!-- Local game references -->
+  <!--#endif -->
   <ItemGroup Condition="Exists('$(GamePath)')">
     <Reference Include="FrooxEngine">
       <HintPath>$(GamePath)FrooxEngine.dll</HintPath>

@@ -182,6 +182,12 @@
         "fallbackVariableName": "DefaultPackageId"
       },
       "replaces": "{packageId}"
+    },
+    "no-tutorial": {
+      "type": "parameter",
+      "description": "Remove tutorial comments from the generated files",
+      "datatype": "bool",
+      "defaultValue": "false"
     }
   },
   "postActions": [
@@ -210,5 +216,31 @@
       ],
       "continueOnError": true
     }
-  ]
+  ],
+  "SpecialCustomOperations": {
+    "**/*.toml": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [
+              "#if"
+            ],
+            "else": [
+              "#else"
+            ],
+            "elseif": [
+              "#elseif"
+            ],
+            "endif": [
+              "#endif"
+            ],
+            "trim": true,
+            "wholeLine": true,
+            "evaluator": "C++"
+          }
+        }
+      ]
+    }
+  }
 }

@@ -60,6 +60,9 @@ Both templates accept the same arguments. `bep6resonite-github` fixes `--ci` to 
 | `-r`, `--repositoryUrl <repositoryUrl>` | text   | empty                                        | Repository URL for the plugin. Defaults to `https://github.com/[FirstAuthor]/[ProjectName]`.                                  |
 | `-p`, `--packageId <packageId>`         | text   | empty                                        | NuGet package ID. Defaults to `[FirstAuthor].[ProjectName]`.                                                                  |
 | `-g`, `--gitInit`                       | bool   | `true`                                       | Initialize a git repository in the new project.                                                                               |
+| `-nt`, `--no-tutorial`                  | bool   | `false`                                      | Remove the tutorial comments from the generated C#, MSBuild and Thunderstore files.                                           |
+
+`--no-tutorial` strips the guidance comments from `Plugin.cs`, the project file, `Directory.Build.targets` and `thunderstore.toml`. Boilerplate comments such as the `.gitignore` headers are kept.
 
 Run `dotnet new <short-name> --help` to see the arguments for a specific template:
 

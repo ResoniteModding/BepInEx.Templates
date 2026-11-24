@@ -23,7 +23,31 @@
       ]
     }
   ],
+  "SpecialCustomOperations": {
+    "**/*.toml": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [ "#if" ],
+            "else": [ "#else" ],
+            "elseif": [ "#elseif" ],
+            "endif": [ "#endif" ],
+            "trim": true,
+            "wholeLine": true,
+            "evaluator": "C++"
+          }
+        }
+      ]
+    }
+  },
   "symbols": {
+    "no-tutorial": {
+      "type": "parameter",
+      "description": "Remove tutorial comments from the generated files",
+      "datatype": "bool",
+      "defaultValue": "false"
+    },
     "ci": {
       "type": "parameter",
       "description": "CI configuration to include (bep6resonite-github preselects github)",
