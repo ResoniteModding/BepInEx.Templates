@@ -64,6 +64,10 @@ Both templates accept the same arguments. `bep6resonite-github` fixes `--ci` to 
 
 `--no-tutorial` strips the guidance comments from `Plugin.cs`, the project file, `Directory.Build.targets` and `thunderstore.toml`. Boilerplate comments such as the `.gitignore` headers are kept.
 
+### Plugin metadata
+
+The template uses [BepInEx.AutoPlugin](https://github.com/ResoniteModding/BepInEx.AutoPlugin) to generate the `ResonitePlugin` attribute and the `GUID`, `NAME`, `VERSION`, `AUTHORS` and `REPOSITORY_URL` constants on your `Plugin` class. Use them as `Plugin.GUID` (or just `GUID` inside the class). No `PluginMetadata` type is generated, so referencing another plugin cannot create a `PluginMetadata` ambiguity.
+
 Run `dotnet new <short-name> --help` to see the arguments for a specific template:
 
 ```
